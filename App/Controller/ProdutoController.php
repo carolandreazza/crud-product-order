@@ -9,7 +9,6 @@ class ProdutoController
         $model = new ProdutoModel();
         $model->getAllRows();
         
-
         include 'View/modules/Produto/ListProduto.php';
     }
 
@@ -37,7 +36,7 @@ class ProdutoController
 
         $model->save();
 
-        header("Location: /");
+        header("Location: /produto");
     }
 
 
@@ -49,6 +48,6 @@ class ProdutoController
 
         $model->delete( (int) $_GET['id'] ); 
 
-        header("Location: /"); 
+        header("Location: /produto"); 
     }
 }

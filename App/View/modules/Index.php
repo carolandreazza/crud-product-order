@@ -40,8 +40,10 @@
 <body>
     <!-- Menu Lateral -->
     <div class="sidebar">
-        <a href="#" onclick="loadContent('/produto')">Produtos</a>
-        <a href="#" onclick="loadContent('/pedido')">Pedidos</a>
+        <a href="/produto">Produtos</a>
+        <a href="/pedido">Pedidos</a>
+        <!-- <a href="#" onclick="loadContent('/produto')">Produtos</a>
+        <a href="#" onclick="loadContent('/pedido')">Pedidos</a> -->
     </div>
 
     <!-- Conteúdo -->
@@ -49,19 +51,6 @@
         <h1>Bem-vindo ao sistema da Livraria</h1>
         <p>Escolha uma opção no menu lateral para ver a lista de produtos ou pedidos.</p>
     </div>
-
-    <script>
-        // Função para carregar o conteúdo dinamicamente
-        function loadContent(page) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState === 4 && this.status === 200) {
-                    document.getElementById("content").innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("GET", page, true);
-            xhttp.send();
-        }
-    </script>
+    
 </body>
 </html>

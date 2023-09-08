@@ -32,6 +32,17 @@ switch($url)
         PedidoController::index();
     break;
 
+    case '/pedido/new':
+        PedidoController::products();
+    break;  
+
+    case '/pedido/save':
+        PedidoController::save();
+    break;  
+
+    case '/pedido/delete':
+        PedidoController::delete();
+    break;
 
     default: 
         echo 'Error 404';

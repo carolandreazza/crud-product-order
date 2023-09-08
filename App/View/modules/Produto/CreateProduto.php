@@ -34,10 +34,10 @@
             </div>
             <div class="form-group">
                 <label for="imagens">Upload de Imagens:</label>
-                <input type="file" class="form-control-file" id="imagens" name="imagens[]" ><!-- multiple required -->
+                <input type="file" class="form-control-file" id="imagens" ><!-- multiple required -->
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="/" class="btn btn-secondary">Cancelar</a>
+            <a href="/produto" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </body>

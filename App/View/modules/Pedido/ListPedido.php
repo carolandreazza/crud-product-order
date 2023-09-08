@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Listagem de Produtos</title>
+    <title>Listagem de Pedidos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Estilos para o menu lateral */
@@ -44,40 +44,38 @@
 
     <div class="content" id="content">
         <div class="container mt-5">
-            <h2>Listagem de Produtos</h2>
-            <a href="produto/edit" class="btn btn-primary">Novo Produto</a>
+            <h2>Listagem de Pedidos</h2>
+            <a href="pedido/new" class="btn btn-primary">Novo Pedido</a>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Descrição</th>
-                        <th>Valor Venda</th>
-                        <th>Estoque</th>
+                        <th>ID do Pedido</th>
+                        <th>Cliente</th>
+                        <th>Data do Pedido</th>
+                        <th>Total</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php if (isset($model) && !empty($model->rows)): ?>
+                    <?php if (isset($model) && !empty($model->rows)): ?>
                     <?php foreach ($model->rows as $item): ?>
                     <tr>
-                        <td><?= $item->idProduto ?></td>
-                        <td><?= $item->descricao ?></td>
-                        <td>R$ <?= number_format($item->valorVenda, 2, ',', '.') ?></td>
-                        <td><?= $item->qtdeEstoque ?> unidades</td>
+                        <td><?= $item->idpedido ?></td>
+                        <td><?= $item->nomeCliente ?></td>
+                        <td><?= $item->dataPedido  ?></td>
+                        <td>R$ <?= number_format($item->totalPedido, 2, ',', '.') ?></td>
                         <td>
-                            <a href='produto/edit?id=<?= $item->idProduto ?>' class='btn btn-warning'>Editar</a>
-                            <a class='btn btn-danger btn-excluir' data-id='<?= $item->idProduto ?>'>Excluir</a>
+                            <a class='btn btn-danger btn-excluir' data-id='<?= $item->idpedido ?>'>Excluir</a>
 
                         </td>
                     </tr>
                     <?php endforeach ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5">Nenhum produto encontrado.</td>
+                        <td colspan="5">Nenhum pedido encontrado.</td>
                     </tr>
                 <?php endif ?>
-            </tbody>
-
+                </tbody>
             </table>
         </div>
     </div>
@@ -91,7 +89,7 @@
             event.preventDefault();
 
             Swal.fire({
-                text: "Tem certeza que desja excluir este produto?",
+                text: "Tem certeza que desja excluir este pedido?",
                 icon: 'warning',
                 showCancelButton: true,
                 cancelButtonText: 'Cancelar',
@@ -100,14 +98,14 @@
                 confirmButtonText: 'Sim'                
             }).then((result) => {
                 if (result.isConfirmed) {
-            var idProduto = $(this).attr('data-id');
+            var idPedido = $(this).attr('data-id');
                     $.ajax({
                         type: 'GET', 
-                        url: 'produto/delete',
-                        data: { id: idProduto },
+                        url: 'pedido/delete',
+                        data: { id: idPedido },
                         success: function(response) {
                             Swal.fire(
-                                'O produto foi excluído com sucesso!'
+                                'O pedido foi excluído com sucesso!'
                             ).then(() => {
                                 location.reload(); // Reload após o usuário clicar em "OK"
                             });
@@ -118,8 +116,5 @@
         });
     });
 </script>
-
 </body>
-</script>
-
 </html>
