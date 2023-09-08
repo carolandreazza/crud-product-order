@@ -18,23 +18,25 @@ class PedidoDAO
         $stmt->bindValue(2, $model->dataPedido); 
         $stmt->bindValue(3, $model->totalPedido); 
         $stmt->execute();
-        $pedidoId = $this->conn->lastInsertId();
         
-        /* var_dump($model); */
-        $sql = "INSERT INTO item_pedido (idpedido, idProduto, quantidade) VALUES (?, ?, ?)";
-
-        if ($stmt = $this->conn->prepare($sql)) {           
-            foreach ($model->listaProdutos as $item) {
-                $produto = $item['idProduto'];
+        if($stmt->rowCount()) {
+            $pedido_id = $this->conn->lastInsertId();
+            
+             foreach ($model->listaProdutos as $item) {
+                $produto = $item['produto'];
                 $quantidade = $item['quantidade'];
-
-                $stmt->bindValue(1, $pedidoId);
-                $stmt->bindValue(2, $produto); 
-                $stmt->bindValue(3, $quantidade);
-                $stmt->execute();
-            }
-            header("Location: /pedido");
-            exit;
+                
+                $sql = "INSERT INTO item_pedido (idPedido, idProduto, quantidade) VALUES (?, ?, ?)";
+                try {
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->bindValue(1, $pedido_id);
+                    $stmt->bindValue(2, $produto); 
+                    $stmt->bindValue(3, $quantidade);
+                    $stmt->execute();
+                } catch (PDOException $e) {
+                    echo "Erro na execução do SQL: " . $e->getMessage();
+                }
+            }           
         } else {
             echo "Erro ao preparar a consulta de inserção de itens do pedido.";
         }        
@@ -52,19 +54,6 @@ class PedidoDAO
         
     }
 
-   /*  public  function selectById(int $id)
-    {
-        include_once 'Model/PedidoModel.php';
-
-        $sql = "SELECT * FROM pedido WHERE idPedido=? ";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(1, $id);
-        $stmt->execute();
-
-
-        return $stmt->fetchObject("PedidoModel");
-        
-    } */
     public  function delete(int $id)
     {
         $sql = "DELETE FROM pedido WHERE idpedido=? ";

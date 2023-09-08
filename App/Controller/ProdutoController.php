@@ -31,9 +31,10 @@ class ProdutoController
         $model->idProduto =  $_POST['idProduto'];
         $model->descricao = $_POST['descricao'];
         $model->valorVenda = $_POST['valor_venda'];
-        $model->qtdeEstoque = $_POST['qtdeestoque'];
-        $model->imagens = '';/* $_POST['imagens'] */;       
-
+        $model->qtdeEstoque = $_POST['qtdeestoque'];   
+        $model->imagens = $_FILES['imagens'];   
+/* var_dump($model);
+exit; */
         $model->save();
 
         header("Location: /produto");

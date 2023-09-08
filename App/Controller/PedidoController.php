@@ -31,9 +31,11 @@ class PedidoController
         $dataAtual = date('Y-m-d'); 
         $model->dataPedido = $dataAtual;   
         $model->totalPedido = $_POST['totalPedido'];   
-        $listaProdutosJSON = $_POST['listaProdutos'];
-        $model->listaProdutos = json_decode($listaProdutosJSON, true);
+        $listaProdutos = json_decode($_POST['listaProdutos'], true);
+        $model->listaProdutos = $listaProdutos;
     
+        /* var_dump($model->listaProdutos);
+        exit; */
         $model->save();
 
         header("Location: /pedido");

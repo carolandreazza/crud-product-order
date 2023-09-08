@@ -13,7 +13,8 @@
         <form action="/pedido/save" method="post">
 
         <input type="hidden" id="listaProdutosInput" name="listaProdutos" value="">
-        <input type="hidden" id="totalPedido" name="totalPedido" value="">
+        <!-- <input type="hidden" id="listaProd" name="listaProd"> -->
+        <input type="hidden" id="totalPedido" name="totalPedido">
 
             <div class="form-group">
                 <label for="nomeCliente">Nome do Cliente:</label>
@@ -64,6 +65,7 @@
     <script>
         // Função para adicionar produtos ao grid
         var listaProdutos = [];
+        /* var listaProd = []; */
         var totalPedido = 0;
         $(document).ready(function () {
             $("#adicionarProduto").click(function () {
@@ -74,9 +76,12 @@
                 var valorItem = parseFloat(produto.substring(posicaoR + 2));
                 var total = isNaN(valorItem) || isNaN(quantidade) ? 0 : valorItem * quantidade;
                 if (quantidade > 0) {
-                    $("#listaProdutos").append("<tr><td>" + produto + "</td><td>" + quantidade + "</td><td>" + "R$" + total.toFixed(2) + "</td><td><button class='btn btn-danger btn-sm removerProduto'>Remover</button></td></tr>");
-                    listaProdutos.push({ produto: produto, quantidade: quantidade, total:total });
+                    $("#listaProdutos").append("<tr><td>" + produto + "</td><td>" + quantidade + "</td><td>" + "R$" + total.toFixed(2) + "</td><td><button class='btn btn-danger btn-sm removerProduto'>Remover</button></td></tr>");                    
+                    listaProdutos.push({ produto: produto.split(' ')[0], quantidade: quantidade, total:total });
+                    $("#listaProdutosInput").val(JSON.stringify(listaProdutos));
                     totalPedido += total;
+                    /* $("#listaProd").val(listaProd); */
+                    $("#totalPedido").val(totalPedido.toFixed(2));
                 }
                 $("#produto").val("");
                 $("#quantidade").val("");
